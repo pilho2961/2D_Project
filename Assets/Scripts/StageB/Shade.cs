@@ -9,8 +9,9 @@ public class Shade : MonoBehaviour
     private Vector2 distanceToTarget;
     Rigidbody2D rb;
 
-    public float maxHp;
+    public float maxHp = 100f;
     public float currentHp;
+    public ShadeHpBarController hpBar;
     public float speed;
     public bool usingSkill;
     private bool isAnger;
@@ -23,11 +24,17 @@ public class Shade : MonoBehaviour
         isAnger = false;
     }
 
+    private void Start()
+    {
+        currentHp = maxHp;
+    }
+
     void Update()
     {
         target = GameManager.Instance.currentplayer.transform;
         CheckDistanceBetweenTarget();
         LookAtTarget();
+        hpBar.SetHealth(currentHp, maxHp);
 
         // 거리 확인
         //print(distanceToTarget.magnitude.ToString());
@@ -35,16 +42,28 @@ public class Shade : MonoBehaviour
         //print(distanceToTarget.y.ToString());
     }
 
-    private IEnumerator UsingSohon()
+    private void UsingSohon()
     {
         skills[0].SetActive(true);
-        yield return new WaitForSeconds(1);
     }
 
-    private IEnumerator UsingGhostSlap()
+    private void OffSohon()
+    {
+        skills[0].SetActive(false);
+    }
+
+    private void UsingGhostSlap()
     {
         skills[1].SetActive(true);
-        yield return new WaitForSeconds(1);
+    }
+    private void OffGhostSlap()
+    {
+        skills[1].SetActive(false);
+    }
+
+    private void UsingFoxSoul()
+    {
+        Instantiate(skills[3],transform);
     }
 
     private IEnumerator UsingAnger()
@@ -56,12 +75,6 @@ public class Shade : MonoBehaviour
             skills[2].SetActive(false);
             yield return new WaitForSeconds(4);
         }
-    }
-
-    private IEnumerator UsingFoxSoul()
-    {
-        Instantiate(skills[3], transform);
-        yield return new WaitForSeconds(1);
     }
 
     private void CheckDistanceBetweenTarget()
@@ -90,21 +103,21 @@ public class Shade : MonoBehaviour
         {
             if (Mathf.Abs(distanceToTarget.x) < 2.5f && distanceToTarget.y > 1f && distanceToTarget.y < 1.8f)
             {
-                StopCoroutine(UsingFoxSoul());
-                StopCoroutine(UsingGhostSlap());
-                StartCoroutine(UsingSohon());
+                UsingSohon();
+                yield return new WaitForSeconds(4);
+                OffSohon();
             }
-            else if (Mathf.Abs(distanceToTarget.x) < 3f && distanceToTarget.y > 0f && distanceToTarget.y < 1f)
+            else if (Mathf.Abs(distanceToTarget.x) < 3f && distanceToTarget.y > -1f && distanceToTarget.y < 1f)
             {
-                StopCoroutine(UsingFoxSoul());
-                StopCoroutine(UsingSohon());
-                StartCoroutine(UsingGhostSlap());
+                UsingGhostSlap();
+                yield return new WaitForSeconds(2);
+                OffGhostSlap();
             }
             else if (distanceToTarget.magnitude > 4)
             {
-                StopCoroutine(UsingSohon());
-                StopCoroutine(UsingGhostSlap());
-                StartCoroutine(UsingFoxSoul());
+                UsingFoxSoul();
+                yield return new WaitForSeconds(1);
+
             }
 
             if (currentHp / maxHp < 0.5f && !isAnger)
@@ -112,7 +125,7 @@ public class Shade : MonoBehaviour
                 isAnger = true;
                 StartCoroutine(UsingAnger());
             }
-            yield return new WaitForSeconds(1.5f);
+            yield return null;
         }
     }
 
@@ -131,6 +144,20 @@ public class Shade : MonoBehaviour
                 rb.velocity = new Vector2(Random.Range(0f, 1f), Random.Range(0f, 1f)) * Random.Range(0.2f, 1f);
                 yield return new WaitForSeconds(Random.Range(0.5f, 1.5f));
             }
+        }
+    }
+
+    private void TakeHit(float damage)
+    {
+        currentHp -= damage;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("PlayerSkill"))
+        {
+            // TODO:스킬의 데미지에 따라 보스몬스터의 체력 감소(TakeHit())
+            
         }
     }
 }

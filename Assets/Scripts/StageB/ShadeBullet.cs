@@ -11,16 +11,21 @@ public class ShadeBullet : Bullet
     {
         rb = GetComponent<Rigidbody2D>();
         target = GameManager.Instance.currentplayer.transform;
-        StartCoroutine(Shot());
+        Shot();
     }
 
-    private IEnumerator Shot()
+    private void Shot()
     {
-        rb.AddForce(target.position * 1f, ForceMode2D.Impulse);
-        yield return new WaitForSeconds(4);
-        Destroy(gameObject);
-        StopCoroutine(Shot());
+        Vector2 direction = (target.position - transform.position).normalized;
+        rb.AddForce(direction * 10f, ForceMode2D.Impulse);
+        Destroy(gameObject, 3f);
     }
 
-
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Destroy(gameObject);
+        }
+    }
 }

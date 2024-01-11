@@ -45,6 +45,7 @@ public class Player : MonoBehaviour
     {
         Move();
         Aim();
+        BasicMoonSliceAttack();
         HpBarChange();
         UsingMetamorphosis();
     }
@@ -180,5 +181,13 @@ public class Player : MonoBehaviour
     private void TakeDamage(float damage)
     {
         currentHp -= damage;
+    }
+
+    private void BasicMoonSliceAttack()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            SkillManager.Instance.MoonSlice();
+        }
     }
 }

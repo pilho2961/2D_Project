@@ -5,6 +5,8 @@ using UnityEngine;
 public class SkillManager : MonoBehaviour
 {
     public static SkillManager Instance { get; private set; }
+    public GameObject[] skillPrefabs;
+
 
     private void Awake()
     {
@@ -28,5 +30,10 @@ public class SkillManager : MonoBehaviour
     public bool IsSkillReady(float skillCoolTime)
     {
         return Time.time >= skillCoolTime;
+    }
+
+    public void MoonSlice()
+    {
+        GameObject moon = Instantiate(skillPrefabs[0]);
     }
 }

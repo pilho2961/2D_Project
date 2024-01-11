@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject, 3f);
         }
 
-        if (!isMelee && collision.gameObject.tag == "Wall")
+        if (collision.gameObject.tag == "Wall")
         {
             Destroy(gameObject);
         }
