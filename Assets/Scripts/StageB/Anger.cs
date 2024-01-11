@@ -10,6 +10,10 @@ public class Anger : MonoBehaviour
     private void OnEnable()
     {
         animator = GetComponent<Animator>();
+        Vector2 randPos = new Vector2(Random.Range(-4, 4), Random.Range(-3, 3));
+        Vector3 randRot = new Vector3(0, 0, Random.Range(0f, 360f));
+        transform.position = randPos;
+        transform.Rotate(randRot);
     }
 
     public void ActivateSkill()

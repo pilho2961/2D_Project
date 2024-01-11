@@ -13,13 +13,18 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject, 3f);
         }
-    }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (!isMelee && other.gameObject.tag == "Wall")
+        if (!isMelee && collision.gameObject.tag == "Wall")
         {
             Destroy(gameObject);
         }
     }
+
+    //private void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    if (!isMelee && other.gameObject.tag == "Wall")
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //}
 }

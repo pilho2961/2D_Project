@@ -8,6 +8,8 @@ TagManager:
   - Bad
   - Enemy
   - EnemyBullet
+  - Wall
+  - Grass
   layers:
   - Default
   - TransparentFX

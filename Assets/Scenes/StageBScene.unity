@@ -175,10 +175,20 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1717956921006517706, guid: 13d2247f29582434b9883185256fb700,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 2376063418879197697, guid: 13d2247f29582434b9883185256fb700,
         type: 3}
       propertyPath: m_Name
       value: TP StageB 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2656054464968563723, guid: 13d2247f29582434b9883185256fb700,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 6489352092795746107, guid: 13d2247f29582434b9883185256fb700,
         type: 3}
@@ -1111,12 +1121,12 @@ PrefabInstance:
     - target: {fileID: 3412433693387401574, guid: 507dfb4094bb0d54180afaff77f07e37,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.69
       objectReference: {fileID: 0}
     - target: {fileID: 3412433693387401574, guid: 507dfb4094bb0d54180afaff77f07e37,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.48
       objectReference: {fileID: 0}
     - target: {fileID: 3412433693387401574, guid: 507dfb4094bb0d54180afaff77f07e37,
         type: 3}
@@ -1182,6 +1192,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6639971476601339734, guid: 507dfb4094bb0d54180afaff77f07e37,
+        type: 3}
+      propertyPath: speed
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6639971476601339734, guid: 507dfb4094bb0d54180afaff77f07e37,
+        type: 3}
+      propertyPath: currentHp
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
