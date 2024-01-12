@@ -1,27 +1,53 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
-public class MoonSlice : Bullet
+public class MoonSlice : MonoBehaviour
 {
-    public Transform currentPlayer;
-    private Vector2 playerAim;
+    public float damage;
     public float speed;
     Rigidbody2D rb;
 
     private void OnEnable()
     {
         rb = GetComponent<Rigidbody2D>();
-        currentPlayer = GameManager.Instance.currentplayer.transform;
-        rb.transform.position = currentPlayer.position;
-        Vector2 mousePositionScreen = Input.mousePosition;
-        Vector2 mousePositionWorld = Camera.main.ScreenToWorldPoint(new Vector2(mousePositionScreen.x, mousePositionScreen.y));
-        playerAim = mousePositionWorld - (Vector2)currentPlayer.position;
-        playerAim.Normalize();
+        StartCoroutine(DeActive());
     }
 
     void Update()
     {
-        rb.velocity = playerAim * speed;
+        if (rb.transform.localScale.x == 0.3f)
+        {
+            rb.velocity = transform.up * speed;
+        }
+        else if (rb.transform.localScale.x == 1f)
+        {
+            rb.velocity = transform.up * speed * 3f;
+            damage = 15f;
+        }
+    }
+
+    private IEnumerator DeActive()
+    {
+        yield return new WaitForSeconds(2);
+        gameObject.SetActive(false);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Wall")
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            other.GetComponent<Shade>().TakeDamage(damage);
+            gameObject.SetActive(false);
+        }
     }
 }

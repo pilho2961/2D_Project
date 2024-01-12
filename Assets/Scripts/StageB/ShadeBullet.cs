@@ -21,10 +21,18 @@ public class ShadeBullet : Bullet
         Destroy(gameObject, 3f);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
+            if (other.GetComponent<Player>() != null)
+            {
+                other.GetComponent<Player>().TakeDamage(damage);
+            }
+            else if (other.GetComponent<Player>() == null)
+            {
+                other.GetComponent<Metamorphosis>().TakeDamage(damage);
+            }
             Destroy(gameObject);
         }
     }

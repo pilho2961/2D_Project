@@ -20,6 +20,17 @@ public class ShadeHpBarController : MonoBehaviour
 
     public void SetHealth(float currentHealth, float maxHealth)
     {
-        healthSlider.value = currentHealth / maxHealth;
+        if (currentHealth > 0f)
+        {
+            healthSlider.value = currentHealth / maxHealth;
+        }
+        else if (currentHealth <= 0f)
+        {
+            healthSlider.value = currentHealth / maxHealth;
+            gameObject.SetActive(false);
+
+        }
     }
+
+
 }

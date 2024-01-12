@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -19,7 +20,7 @@ public class Player : MonoBehaviour
 
     private float maxHp;
     [SerializeField]
-    private float currentHp;
+    public float currentHp;
     Slider hpBar;
     TextMeshProUGUI hpText;
     public float GetHpValue() { return currentHp / maxHp; }
@@ -27,12 +28,15 @@ public class Player : MonoBehaviour
     public ShadeBullet shadeBullet;
     public Anger anger;
 
+    public Tilemap tilemap;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
         hpBar = GetComponentInChildren<Slider>();
         hpText = GetComponentInChildren<TextMeshProUGUI>();
         rb = GetComponent<Rigidbody2D>();
+        tilemap = FindObjectOfType<Tilemap>();
     }
 
     private void Start()
@@ -46,8 +50,10 @@ public class Player : MonoBehaviour
         Move();
         Aim();
         BasicMoonSliceAttack();
+        StrongMoonSliceAttack();
         HpBarChange();
         UsingMetamorphosis();
+        OntheTilemap();
     }
 
     private void Move()
@@ -83,7 +89,7 @@ public class Player : MonoBehaviour
                     GetComponent<CapsuleCollider2D>().enabled = false;  // 순간이동 시 충돌판정 제거
                     rb.MovePosition(rb.position + dir * teleportDistance);
                     //TODO: 순간이동 애니메이션 추가
-                    teleportCoolTime = Time.time + 1f;
+                    teleportCoolTime = Time.time + 1f;                    
                 }
             }
 
@@ -92,10 +98,26 @@ public class Player : MonoBehaviour
         }
     }
 
+    // 플레이어가 타일맵 위에 위치하는지 체크하고 아니면 맵 위로 돌려보내는 함수
+    private void OntheTilemap()
+    {
+        Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
+        if (!IsCellInsideTilemapBounds(cellPosition))
+        {
+            // If the player is outside the tilemap bounds, set the player's position to the end of the tilemap
+            transform.position = tilemap.GetCellCenterWorld(cellPosition);
+        }
+    }
+    bool IsCellInsideTilemapBounds(Vector3Int cellPosition)
+    {
+        return tilemap.cellBounds.Contains(cellPosition);
+    }
+
     private void Aim()
     {
         Vector2 mousePositionScreen = Input.mousePosition;
-        Vector2 mousePositionWorld = Camera.main.ScreenToWorldPoint(new Vector2(mousePositionScreen.x, mousePositionScreen.y));
+        Vector2 mousePositionWorld = Camera.main.ScreenToWorldPoint(mousePositionScreen);
+        aim.up = mousePositionWorld - (Vector2)transform.position;
 
         Vector2 direction = mousePositionWorld - (Vector2)transform.position;
         if (direction.x > 0)
@@ -162,32 +184,70 @@ public class Player : MonoBehaviour
         isAnimationPlaying = false;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void TakeDamage(float damage)
     {
-        if (collision.gameObject.CompareTag("EnemyBullet"))
+        if (currentHp > damage)
         {
-            TakeDamage(shadeBullet.damage);
+            currentHp -= damage;
+        }
+        if (currentHp <= damage)
+        {
+            currentHp = 0;
+            Die();
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void Die()
     {
-        if (other.gameObject.CompareTag("EnemyBullet"))
-        {
-            TakeDamage(anger.damage);
-        }
-    }
-
-    private void TakeDamage(float damage)
-    {
-        currentHp -= damage;
+        // TODO:캐릭터 비활성화하고 재도전 UI 띄우기 -> 씬 다시 불러오기
+        return;
     }
 
     private void BasicMoonSliceAttack()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && TimeManager.Instance.IsSkillAvailable("BasicMoonSliceAttack", 0.5f))
         {
             SkillManager.Instance.MoonSlice();
+            TimeManager.Instance.UseSkill("BasicMoonSliceAttack");
+        }
+        else if (Input.GetMouseButtonDown(0) && !TimeManager.Instance.IsSkillAvailable("BasicMoonSliceAttack", 0.5f))
+        {
+            print("moonslice쿨타임");
+        }
+    }
+
+    private bool isRightMouseDown;
+    private float rightMouseClickStartTime;
+
+    private void StrongMoonSliceAttack()
+    {
+        if (Input.GetMouseButtonDown(1) && TimeManager.Instance.IsSkillAvailable("StrongMoonSlice", 4f)) // 1 represents the right mouse button
+        {
+            // Right mouse button pressed
+            isRightMouseDown = true;
+            rightMouseClickStartTime = Time.time;
+            animator.SetBool("preparing", true);
+        }
+        else if (Input.GetMouseButtonDown(1) && !TimeManager.Instance.IsSkillAvailable("StrongMoonSlice", 4f))
+        {
+            print("strongmoonslice쿨타임");
+        }
+
+        if (Input.GetMouseButtonUp(1)) // 1 represents the right mouse button
+        {
+            animator.SetBool("preparing", false);
+            // Right mouse button released
+            if (isRightMouseDown)
+            {
+                float duration = Time.time - rightMouseClickStartTime;
+                if (duration > 2)
+                {
+                    SkillManager.Instance.StrongMoonSlice();
+                    TimeManager.Instance.UseSkill("StrongMoonSlice");
+                }
+            }
+
+            isRightMouseDown = false;
         }
     }
 }

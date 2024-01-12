@@ -22,4 +22,19 @@ public class NearSkill : MonoBehaviour
         animator.SetBool("isActive", false);
         gameObject.SetActive(false);
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            if (other.GetComponent<Player>() != null)
+            {
+                other.GetComponent<Player>().TakeDamage(damage);
+            }
+            else if (other.GetComponent<Player>() == null)
+            {
+                other.GetComponent<Metamorphosis>().TakeDamage(damage);
+            }
+        }
+    }
 }

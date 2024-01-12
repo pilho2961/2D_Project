@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public int damage;
+    public float damage;
     public bool isMelee;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.tag == "Grass")
+        if (other.gameObject.tag == "Grass")
         {
             Destroy(gameObject, 3f);
         }
+    }
 
-        if (collision.gameObject.tag == "Wall")
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Wall")
         {
             Destroy(gameObject);
         }

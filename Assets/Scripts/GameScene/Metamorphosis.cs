@@ -4,6 +4,7 @@ using TMPro;
 using Unity.Burst.Intrinsics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 
@@ -21,7 +22,7 @@ public class Metamorphosis : MonoBehaviour
 
     private float maxHp;
     [SerializeField]
-    private float currentHp;
+    public float currentHp;
     Slider hpBar;
     TextMeshProUGUI hpText;
     public float GetHpValue() { return currentHp / maxHp; }
@@ -29,12 +30,15 @@ public class Metamorphosis : MonoBehaviour
     public ShadeBullet shadeBullet;
     public Anger anger;
 
+    public Tilemap tilemap;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
         hpBar = GetComponentInChildren<Slider>();
         hpText = GetComponentInChildren<TextMeshProUGUI>();
         rb = GetComponent<Rigidbody2D>();
+        tilemap = FindObjectOfType<Tilemap>();
     }
 
     private void Start()
@@ -49,6 +53,7 @@ public class Metamorphosis : MonoBehaviour
         Aim();
         HpBarChange();
         ComeBack();
+        OntheTilemap();
     }
 
     private void Move()
@@ -91,6 +96,21 @@ public class Metamorphosis : MonoBehaviour
             GetComponent<CapsuleCollider2D>().enabled = true;
             animator.SetBool("isFlying", rb.velocity != Vector2.zero);
         }
+    }
+
+    // 플레이어가 타일맵 위에 위치하는지 체크하고 아니면 맵 위로 돌려보내는 함수
+    private void OntheTilemap()
+    {
+        Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
+        if (!IsCellInsideTilemapBounds(cellPosition))
+        {
+            // If the player is outside the tilemap bounds, set the player's position to the end of the tilemap
+            transform.position = tilemap.GetCellCenterWorld(cellPosition);
+        }
+    }
+    bool IsCellInsideTilemapBounds(Vector3Int cellPosition)
+    {
+        return tilemap.cellBounds.Contains(cellPosition);
     }
 
     private void Aim()
@@ -142,24 +162,22 @@ public class Metamorphosis : MonoBehaviour
         hpText.text = currentHp.ToString();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void TakeDamage(float damage)
     {
-        if (collision.gameObject.CompareTag("EnemyBullet"))
+        if (currentHp > damage)
         {
-            TakeDamage(shadeBullet.damage);
+            currentHp -= damage;
+        }
+        if (currentHp <= damage)
+        {
+            currentHp = 0;
+            Die();
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void Die()
     {
-        if (other.gameObject.CompareTag("EnemyBullet"))
-        {
-            TakeDamage(anger.damage);
-        }
-    }
-
-    private void TakeDamage(float damage)
-    {
-        currentHp -= damage;
+        // TODO:캐릭터 비활성화하고 재도전 UI 띄우기 -> 씬 다시 불러오기
+        return;
     }
 }

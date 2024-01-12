@@ -35,6 +35,10 @@ public class Shade : MonoBehaviour
         CheckDistanceBetweenTarget();
         LookAtTarget();
         hpBar.SetHealth(currentHp, maxHp);
+        if (currentHp == 0f)
+        {
+            Die();
+        }
 
         // 거리 확인
         //print(distanceToTarget.magnitude.ToString());
@@ -141,15 +145,28 @@ public class Shade : MonoBehaviour
             }
             else if (distanceToTarget.magnitude < 5)
             {
-                rb.velocity = new Vector2(Random.Range(0f, 1f), Random.Range(0f, 1f)) * Random.Range(0.2f, 1f);
+                rb.velocity = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * Random.Range(0.3f, 1.2f);
                 yield return new WaitForSeconds(Random.Range(0.5f, 1.5f));
             }
         }
     }
 
-    private void TakeHit(float damage)
+    public void TakeDamage(float damage)
     {
-        currentHp -= damage;
+        if (currentHp > damage)
+        {
+            currentHp -= damage;
+        }
+        if (currentHp <= damage)
+        {
+            currentHp = 0f;
+        }
+    }
+
+    private void Die()
+    {
+        //TODO:shade 비활성화 후 게임 진행
+        gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
