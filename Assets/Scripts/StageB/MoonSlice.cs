@@ -34,19 +34,24 @@ public class MoonSlice : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Wall")
-        {
-            gameObject.SetActive(false);
-        }
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
             other.GetComponent<Shade>().TakeDamage(damage);
+            gameObject.SetActive(false);
+        }
+
+        if (other.gameObject.tag == "Player")
+        {
+            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), other, true);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Grass")
+        {
             gameObject.SetActive(false);
         }
     }

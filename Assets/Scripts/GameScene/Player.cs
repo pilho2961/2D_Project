@@ -43,10 +43,12 @@ public class Player : MonoBehaviour
     {
         maxHp = 100f;
         currentHp = 100f;
+        previousPosition = transform.position;
     }
 
     private void Update()
     {
+        previousPosition = transform.position;
         Move();
         Aim();
         BasicMoonSliceAttack();
@@ -248,6 +250,16 @@ public class Player : MonoBehaviour
             }
 
             isRightMouseDown = false;
+        }
+    }
+
+    private Vector3 previousPosition;
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Grass")
+        {
+            transform.position = previousPosition;
         }
     }
 }
