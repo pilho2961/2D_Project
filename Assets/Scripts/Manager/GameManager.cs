@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public GameObject sleepCharacter;
     public GameObject metamorphosisPrefab;
     public GameObject playerYoungPrefab;
+    public GameObject collectionNotice;
 
     public static GameManager Instance { get; private set; }
 
@@ -44,6 +45,7 @@ public class GameManager : MonoBehaviour
     }
     public void BreakingIce()
     {
+        collectionNotice.SetActive(true);
         Transform currentplayerPos = currentplayer.transform;
         sleepCharacter = currentplayer;
         sleepCharacter.SetActive(false);

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +20,8 @@ public class PlayerYoung : MonoBehaviour
     public float GetFearValue() { return currentFear / maxFear; }
 
     HappyDreamFragmentE fragment;
+    public int happyCount;
+    public int badCount;
 
     private void Awake()
     {
@@ -163,6 +164,14 @@ public class PlayerYoung : MonoBehaviour
             currentFear += fragment.fearGage;
             if (currentFear < 0) { currentFear = 0; }
             if (currentFear > maxFear) { currentFear = maxFear; }
+            if (other.CompareTag("Happy"))
+            {
+                happyCount++;
+            }
+            else
+            {
+                badCount++;
+            }
         }
     }
 }
