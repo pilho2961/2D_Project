@@ -349,7 +349,7 @@ Transform:
   m_GameObject: {fileID: 1892826706177518987}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.542614, y: 0, z: -10}
+  m_LocalPosition: {x: 1.13, y: -1.29, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -508,6 +508,7 @@ MonoBehaviour:
   shadeBullet: {fileID: 8004808913154651423, guid: 0fa9bd559d6b4a94e91aa52ddba44f94,
     type: 3}
   anger: {fileID: 9023014165812160820, guid: ae31c44f555a92149a7601578e6e453b, type: 3}
+  tilemap: {fileID: 0}
 --- !u!50 &2040788968371798128
 Rigidbody2D:
   serializedVersion: 4
@@ -532,8 +533,8 @@ Rigidbody2D:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!70 &5551539054306199573
 CapsuleCollider2D:

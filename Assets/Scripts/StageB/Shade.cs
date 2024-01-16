@@ -16,6 +16,8 @@ public class Shade : MonoBehaviour
     public bool usingSkill;
     private bool isAnger;
 
+    public GameObject keyB;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -165,8 +167,10 @@ public class Shade : MonoBehaviour
 
     private void Die()
     {
+        Instantiate(keyB, transform.position, Quaternion.identity);
         //TODO:shade 비활성화 후 게임 진행
         gameObject.SetActive(false);
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)

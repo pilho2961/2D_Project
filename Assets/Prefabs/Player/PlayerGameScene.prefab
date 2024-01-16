@@ -33,6 +33,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -3.0316495e-15
       objectReference: {fileID: 0}
+    - target: {fileID: 902118444323310084, guid: 7785c009aac19334eb01b394f557646d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1083385381892936529, guid: 7785c009aac19334eb01b394f557646d,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -166,6 +171,4 @@ MonoBehaviour:
   speed: 3
   aim: {fileID: 4838574890576681551}
   teleportDistance: 3
-  metamorphosisGage: 0
   currentHp: 0
-  tilemap: {fileID: 0}

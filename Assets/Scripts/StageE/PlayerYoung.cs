@@ -20,6 +20,7 @@ public class PlayerYoung : MonoBehaviour
     public float GetFearValue() { return currentFear / maxFear; }
 
     HappyDreamFragmentE fragment;
+    FogOfWar fog;
     public int happyCount;
     public int badCount;
 

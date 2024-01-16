@@ -16,6 +16,31 @@ public class SceneLoader : MonoBehaviour
         Instance = this;
     }
 
+    public void StageESceneLoad()
+    {
+        SceneManager.LoadScene("StageEScene");
+    }
+
+    public void StageDSceneLoad()
+    {
+        SceneManager.LoadScene("StageDScene");
+    }
+
+    public void StageCSceneLoad()
+    {
+        SceneManager.LoadScene("StageCScene");
+    }
+
+    public void StageBSceneLoad()
+    {
+        SceneManager.LoadScene("StageBScene");
+    }
+
+    public void StageASceneLoad()
+    {
+        SceneManager.LoadScene("StageAScene");
+    }
+
     public void GameSceneLoad()
     {
         SceneManager.LoadScene("GameScene");

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.ParticleSystem;
 
 public class FogOfWar : MonoBehaviour
 {
@@ -9,7 +8,8 @@ public class FogOfWar : MonoBehaviour
     Vector2 refVel = Vector2.zero;
     PlayerYoung fogSize;
     ParticleSystem fog;
-    bool changed = false;       // 사이즈가 계속 바뀌는 것을 막기 위한 키
+    public bool changed = false;       // 사이즈가 계속 바뀌는 것을 막기 위한 키
+
 
     private void Start()
     {
@@ -20,12 +20,16 @@ public class FogOfWar : MonoBehaviour
     {
         player = GameManager.Instance.currentplayer.transform;
         transform.position = Vector2.SmoothDamp(transform.position, player.position, ref refVel, 0.5f);
-        if (fogSize == null) 
+        if (fogSize == null)
         {
             GameManager.Instance.currentplayer.TryGetComponent(out PlayerYoung playerYoung);
             fogSize = playerYoung;
         }
-        SizeChange();
+        else if (fogSize != null)
+        {
+            SizeChange();
+            ChangedCheck();
+        }
     }
 
     private void SizeChange()
@@ -34,7 +38,7 @@ public class FogOfWar : MonoBehaviour
         Vector2 sizeDown = new Vector2(fog.shape.scale.x - 2f, fog.shape.scale.y - 0.5f);
         ParticleSystem.ShapeModule shapeModule = fog.shape;
 
-        if (!changed && fogSize != null)
+        if (!changed)
         {
             if (fogSize.happyCount > 1 && fogSize.happyCount % 15 == 0)
             {
@@ -46,6 +50,14 @@ public class FogOfWar : MonoBehaviour
                 shapeModule.scale = sizeDown;
                 changed = true;
             }
+        }
+    }
+
+    private void ChangedCheck()
+    {
+        if (fogSize.happyCount % 15 != 0 && fogSize.badCount % 5 != 0 && changed)
+        {
+            changed = false;
         }
     }
 }

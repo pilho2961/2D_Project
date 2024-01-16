@@ -84,15 +84,12 @@ public class Player : MonoBehaviour
             dir.Normalize();
             rb.velocity = speed * dir;
 
-            if (SkillManager.Instance.IsSkillReady(teleportCoolTime))
+            if (SkillManager.Instance.IsSkillReady(teleportCoolTime) && Input.GetKey(KeyCode.LeftShift))
             {
-                if (Input.GetKey(KeyCode.LeftShift))
-                {
-                    GetComponent<CapsuleCollider2D>().enabled = false;  // 순간이동 시 충돌판정 제거
-                    rb.MovePosition(rb.position + dir * teleportDistance);
-                    //TODO: 순간이동 애니메이션 추가
-                    teleportCoolTime = Time.time + 1f;                    
-                }
+                GetComponent<CapsuleCollider2D>().enabled = false;  // 순간이동 시 충돌판정 제거
+                rb.MovePosition(rb.position + dir * teleportDistance);
+                //TODO: 순간이동 애니메이션 추가
+                teleportCoolTime = Time.time + 1f;
             }
 
             GetComponent<CapsuleCollider2D>().enabled = true;
@@ -223,14 +220,14 @@ public class Player : MonoBehaviour
 
     private void StrongMoonSliceAttack()
     {
-        if (Input.GetMouseButtonDown(1) && TimeManager.Instance.IsSkillAvailable("StrongMoonSlice", 4f)) // 1 represents the right mouse button
+        if (Input.GetMouseButtonDown(1) && TimeManager.Instance.IsSkillAvailable("StrongMoonSlice", 3f)) // 1 represents the right mouse button
         {
             // Right mouse button pressed
             isRightMouseDown = true;
             rightMouseClickStartTime = Time.time;
             animator.SetBool("preparing", true);
         }
-        else if (Input.GetMouseButtonDown(1) && !TimeManager.Instance.IsSkillAvailable("StrongMoonSlice", 4f))
+        else if (Input.GetMouseButtonDown(1) && !TimeManager.Instance.IsSkillAvailable("StrongMoonSlice", 3f))
         {
             print("strongmoonslice쿨타임");
         }
@@ -242,7 +239,7 @@ public class Player : MonoBehaviour
             if (isRightMouseDown)
             {
                 float duration = Time.time - rightMouseClickStartTime;
-                if (duration > 2)
+                if (duration > 1.5f)
                 {
                     SkillManager.Instance.StrongMoonSlice();
                     TimeManager.Instance.UseSkill("StrongMoonSlice");
