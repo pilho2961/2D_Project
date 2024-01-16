@@ -10,6 +10,16 @@ public class StageBPortal : MonoBehaviour
     public GameObject interactionUIPrefab;
     public GameObject createdUI;
     TextMeshProUGUI text;
+    private bool isActive = true;
+
+    private void Update()
+    {
+        if (DataManager.Instance.data.isUnlock[1] && isActive)
+        {
+            isActive = false;
+            gameObject.SetActive(false);
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {

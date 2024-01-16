@@ -7,6 +7,7 @@ public class Menu : MonoBehaviour
 {
     Animator animator;
     public Button newGameButton;
+    public Button continueButton;
     public Button settingsButton;
     public Button quitButton;
 
@@ -18,7 +19,9 @@ public class Menu : MonoBehaviour
 
     private void Start()
     {
+        newGameButton.onClick.AddListener(() => DataManager.Instance.NewGameData());
         newGameButton.onClick.AddListener(() => SceneLoader.Instance.GameSceneLoad());
+        continueButton.onClick.AddListener(() => SceneLoader.Instance.GameSceneLoad());
         settingsButton.onClick.AddListener(() => UIManager.Instance.PopUpSettings());
         quitButton.onClick.AddListener(() => GameManager.Instance.QuitGame());
     }

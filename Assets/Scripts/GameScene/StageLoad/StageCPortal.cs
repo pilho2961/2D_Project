@@ -10,10 +10,12 @@ public class StageCPortal : MonoBehaviour
     public GameObject interactionUIPrefab;
     public GameObject createdUI;
     TextMeshProUGUI text;
+    private bool isActive = true;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && DataManager.Instance.data.isUnlock[0] && DataManager.Instance.data.isUnlock[1] &&
+            DataManager.Instance.data.isUnlock[3] && DataManager.Instance.data.isUnlock[4])
         {
             createdUI = Instantiate(interactionUIPrefab, transform);
             SetUIPosition(createdUI, new Vector3(1000f, 1000f, 0f));
@@ -25,7 +27,8 @@ public class StageCPortal : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (Input.GetKey(KeyCode.G))
+        if (Input.GetKey(KeyCode.G) && DataManager.Instance.data.isUnlock[0] && DataManager.Instance.data.isUnlock[1] &&
+            DataManager.Instance.data.isUnlock[3] && DataManager.Instance.data.isUnlock[4])
         {
             SceneLoader.Instance.StageCSceneLoad();
         }

@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class Key : MonoBehaviour
 {
-    public enum KeyNum
-    {
-        KeyA, KeyB, KeyC, KeyD, KeyE
-    }
-
+    public int keyNum;
     private Vector2 velocity = Vector2.zero;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -22,7 +18,9 @@ public class Key : MonoBehaviour
 
     private void Eat()
     {
+        DataManager.Instance.StageUnlock(keyNum);
         gameObject.SetActive(false);
+        SceneLoader.Instance.GameSceneLoad();
     }
 
     private void OnEnable()

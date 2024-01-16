@@ -14,10 +14,10 @@ public class DataController : MonoBehaviour
         DataManager.Instance.SaveGameData();
     }
 
-    public void StageUnlock(int stageNum)
-    {
-        DataManager.Instance.data.isUnlock[stageNum] = true;
+    //public void StageUnlock(int stageNum)
+    //{
+    //    DataManager.Instance.data.isUnlock[stageNum] = true;
 
-        DataManager.Instance.SaveGameData();
-    }
+    //    DataManager.Instance.SaveGameData();
+    //}
 }

@@ -3204,10 +3204,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: StageCPortal
       objectReference: {fileID: 0}
+    - target: {fileID: 5607819269926399345, guid: 45e0f06c750176947862c10346226439,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5898729871911122894, guid: 45e0f06c750176947862c10346226439,
         type: 3}
       propertyPath: playOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6560384534278263821, guid: 45e0f06c750176947862c10346226439,
         type: 3}
@@ -3227,17 +3232,17 @@ PrefabInstance:
     - target: {fileID: 7149508684990454401, guid: 45e0f06c750176947862c10346226439,
         type: 3}
       propertyPath: playOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7769349589532163619, guid: 45e0f06c750176947862c10346226439,
         type: 3}
       propertyPath: playOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8445763112410648400, guid: 45e0f06c750176947862c10346226439,
         type: 3}
       propertyPath: playOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8822,6 +8827,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 797784518864179116, guid: a2a060732547fe64581bb0cb3c2bdf1d,
         type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 797784518864179116, guid: a2a060732547fe64581bb0cb3c2bdf1d,
+        type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
       value: 0.35178617
       objectReference: {fileID: 0}
@@ -8837,6 +8847,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1250526515560420135, guid: a2a060732547fe64581bb0cb3c2bdf1d,
         type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1250526515560420135, guid: a2a060732547fe64581bb0cb3c2bdf1d,
+        type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
       value: 0.34678814
       objectReference: {fileID: 0}
@@ -8849,6 +8864,11 @@ PrefabInstance:
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
       value: 0.33333337
+      objectReference: {fileID: 0}
+    - target: {fileID: 2521798822396321367, guid: a2a060732547fe64581bb0cb3c2bdf1d,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2521798822396321367, guid: a2a060732547fe64581bb0cb3c2bdf1d,
         type: 3}
@@ -8894,6 +8914,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SortingLayerID
       value: -44025399
+      objectReference: {fileID: 0}
+    - target: {fileID: 3574362967237534933, guid: a2a060732547fe64581bb0cb3c2bdf1d,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3574362967237534933, guid: a2a060732547fe64581bb0cb3c2bdf1d,
         type: 3}
@@ -9002,6 +9027,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3700276150076900165, guid: a2a060732547fe64581bb0cb3c2bdf1d,
         type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3700276150076900165, guid: a2a060732547fe64581bb0cb3c2bdf1d,
+        type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
       value: 0.016661637
       objectReference: {fileID: 0}
@@ -9063,6 +9093,11 @@ PrefabInstance:
     - target: {fileID: 7861603197557082114, guid: a2a060732547fe64581bb0cb3c2bdf1d,
         type: 3}
       propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8313997972342363818, guid: a2a060732547fe64581bb0cb3c2bdf1d,
+        type: 3}
+      propertyPath: playOnAwake
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8313997972342363818, guid: a2a060732547fe64581bb0cb3c2bdf1d,

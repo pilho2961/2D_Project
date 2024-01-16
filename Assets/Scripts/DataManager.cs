@@ -23,7 +23,7 @@ public class DataManager : MonoBehaviour
     }
 
     // --- 게임 데이터 파일이름 설정 ("원하는 이름(영문).json") --- //
-    string GameDataFileName = "GameData.json";
+    string GameDataFileName = "GameDatajson";
 
     // --- 저장용 클래스 변수 --- //
     public Data data = new Data();
@@ -61,5 +61,28 @@ public class DataManager : MonoBehaviour
         {
             print($"{i}번 챕터 잠금 해제 여부 : " + data.isUnlock[i]);
         }
+    }
+
+    public void NewGameData()
+    {
+        string filePath = Application.persistentDataPath + "/" + GameDataFileName;
+
+        // 저장된 게임이 있다면
+        if (File.Exists(filePath))
+        {
+            // 저장된 파일 읽어오고 Json을 클래스 형식으로 전환해서 할당
+            string FromJsonData = File.ReadAllText(filePath);
+            data = JsonUtility.FromJson<Data>(FromJsonData);
+            print("불러오기 완료");
+            File.Delete(FromJsonData);
+        }
+    }
+    
+    // Key마다 int값 부여해서 스테이지 클리어
+    public void StageUnlock(int keyNum)
+    {
+        data.isUnlock[keyNum] = true;
+
+        SaveGameData();
     }
 }
