@@ -31,7 +31,7 @@ PrefabInstance:
     - target: {fileID: 902118444323310084, guid: 7785c009aac19334eb01b394f557646d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.0316495e-15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 902118444323310084, guid: 7785c009aac19334eb01b394f557646d,
         type: 3}
@@ -126,7 +126,7 @@ PrefabInstance:
     - target: {fileID: 3750401151479241764, guid: 7785c009aac19334eb01b394f557646d,
         type: 3}
       propertyPath: m_CollisionDetection
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9131031403682475583, guid: 7785c009aac19334eb01b394f557646d,
         type: 3}
@@ -135,7 +135,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4922093564772629661, guid: 7785c009aac19334eb01b394f557646d, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3896575103990925039, guid: 7785c009aac19334eb01b394f557646d, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2912552425318183337, guid: 7785c009aac19334eb01b394f557646d,
@@ -143,6 +144,12 @@ PrefabInstance:
       insertIndex: 1
       addedObject: {fileID: 3154889425470092990}
   m_SourcePrefab: {fileID: 100100000, guid: 7785c009aac19334eb01b394f557646d, type: 3}
+--- !u!82 &4750874627487857937 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2838687997972458140, guid: 7785c009aac19334eb01b394f557646d,
+    type: 3}
+  m_PrefabInstance: {fileID: 7389128243011671949}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4838574890576681551 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2714939155249810882, guid: 7785c009aac19334eb01b394f557646d,
@@ -172,3 +179,4 @@ MonoBehaviour:
   aim: {fileID: 4838574890576681551}
   teleportDistance: 3
   currentHp: 0
+  audioSource: {fileID: 4750874627487857937}

@@ -23,12 +23,16 @@ public class Player : MonoBehaviour
     public float currentHp;
     Slider hpBar;
     TextMeshProUGUI hpText;
+    public Slider metaBar;
+    public TextMeshProUGUI metaText;
+
     public float GetHpValue() { return currentHp / maxHp; }
 
     public ShadeBullet shadeBullet;
     public Anger anger;
 
     public Tilemap tilemap;
+    public AudioSource[] audioSource;
 
     private void Awake()
     {
@@ -43,17 +47,16 @@ public class Player : MonoBehaviour
     {
         maxHp = 100f;
         currentHp = 100f;
-        previousPosition = transform.position;
     }
 
     private void Update()
     {
-        previousPosition = transform.position;
         Move();
         Aim();
         BasicMoonSliceAttack();
         StrongMoonSliceAttack();
         HpBarChange();
+        MetaBarChange();
         UsingMetamorphosis();
         OntheTilemap();
     }
@@ -87,6 +90,7 @@ public class Player : MonoBehaviour
             if (SkillManager.Instance.IsSkillReady(teleportCoolTime) && Input.GetKey(KeyCode.LeftShift))
             {
                 GetComponent<CapsuleCollider2D>().enabled = false;  // 순간이동 시 충돌판정 제거
+                audioSource[0].Play();
                 rb.MovePosition(rb.position + dir * teleportDistance);
                 //TODO: 순간이동 애니메이션 추가
                 teleportCoolTime = Time.time + 1f;
@@ -160,7 +164,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnAnimationEnd()
+    public void OnAnimationEnd()
     {
         ChangeOver();
         AnimationComplete();
@@ -171,6 +175,12 @@ public class Player : MonoBehaviour
     {
         hpBar.value = GetHpValue();
         hpText.text = currentHp.ToString();
+    }
+
+    public void MetaBarChange()
+    {
+        metaBar.value = metamorphosisGage / 100f;
+        metaText.text = metamorphosisGage.ToString();
     }
 
     public void ChangeOver()
@@ -187,6 +197,7 @@ public class Player : MonoBehaviour
     {
         if (currentHp > damage)
         {
+            audioSource[1].Play();
             currentHp -= damage;
         }
         if (currentHp <= damage)
@@ -206,17 +217,20 @@ public class Player : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && TimeManager.Instance.IsSkillAvailable("BasicMoonSliceAttack", 0.5f))
         {
+            audioSource[2].Play();
             SkillManager.Instance.MoonSlice();
             TimeManager.Instance.UseSkill("BasicMoonSliceAttack");
         }
         else if (Input.GetMouseButtonDown(0) && !TimeManager.Instance.IsSkillAvailable("BasicMoonSliceAttack", 0.5f))
         {
+            audioSource[3].Play();
             print("moonslice쿨타임");
         }
     }
 
     private bool isRightMouseDown;
     private float rightMouseClickStartTime;
+    private bool isPreparing = false;
 
     private void StrongMoonSliceAttack()
     {
@@ -225,16 +239,23 @@ public class Player : MonoBehaviour
             // Right mouse button pressed
             isRightMouseDown = true;
             rightMouseClickStartTime = Time.time;
-            animator.SetBool("preparing", true);
+
+            if (!isPreparing)
+            {
+                animator.SetBool("preparing", true);
+                isPreparing = true;
+            }
         }
         else if (Input.GetMouseButtonDown(1) && !TimeManager.Instance.IsSkillAvailable("StrongMoonSlice", 3f))
         {
+            audioSource[3].Play();
             print("strongmoonslice쿨타임");
         }
 
         if (Input.GetMouseButtonUp(1)) // 1 represents the right mouse button
         {
             animator.SetBool("preparing", false);
+            isPreparing = false;
             // Right mouse button released
             if (isRightMouseDown)
             {
@@ -247,16 +268,6 @@ public class Player : MonoBehaviour
             }
 
             isRightMouseDown = false;
-        }
-    }
-
-    private Vector3 previousPosition;
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Grass")
-        {
-            transform.position = previousPosition;
         }
     }
 }

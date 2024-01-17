@@ -17,6 +17,7 @@ public class Shade : MonoBehaviour
     private bool isAnger;
 
     public GameObject keyB;
+    public AudioSource audioSource;
 
     private void Awake()
     {
@@ -167,6 +168,7 @@ public class Shade : MonoBehaviour
 
     private void Die()
     {
+        audioSource.Play();
         Instantiate(keyB, transform.position, Quaternion.identity);
         //TODO:shade 비활성화 후 게임 진행
         gameObject.SetActive(false);

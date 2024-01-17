@@ -23,7 +23,7 @@ public class DataManager : MonoBehaviour
     }
 
     // --- 게임 데이터 파일이름 설정 ("원하는 이름(영문).json") --- //
-    string GameDataFileName = "GameDatajson";
+    string GameDataFileName = "GameData.json";
 
     // --- 저장용 클래스 변수 --- //
     public Data data = new Data();
@@ -65,7 +65,7 @@ public class DataManager : MonoBehaviour
 
     public void NewGameData()
     {
-        string filePath = Application.persistentDataPath + "/" + GameDataFileName;
+        string filePath = Application.persistentDataPath + GameDataFileName;
 
         // 저장된 게임이 있다면
         if (File.Exists(filePath))

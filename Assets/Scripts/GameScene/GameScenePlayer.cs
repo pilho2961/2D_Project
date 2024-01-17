@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 
 public class GameScenePlayer : MonoBehaviour
@@ -17,6 +18,8 @@ public class GameScenePlayer : MonoBehaviour
     [SerializeField]
     public float currentHp;
     public float GetHpValue() { return currentHp / maxHp; }
+
+    public AudioSource audioSource;
 
     private void Awake()
     {
@@ -67,6 +70,8 @@ public class GameScenePlayer : MonoBehaviour
                 if (Input.GetKey(KeyCode.LeftShift))
                 {
                     GetComponent<CapsuleCollider2D>().enabled = false;  // 순간이동 시 충돌판정 제거
+                    audioSource.Play();
+                    animator.SetTrigger("teleport");
                     rb.MovePosition(rb.position + dir * teleportDistance);
                     //TODO: 순간이동 애니메이션 추가
                     teleportCoolTime = Time.time + 1f;

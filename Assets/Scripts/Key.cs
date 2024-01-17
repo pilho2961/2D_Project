@@ -6,13 +6,15 @@ public class Key : MonoBehaviour
 {
     public int keyNum;
     private Vector2 velocity = Vector2.zero;
+    [SerializeField]private AudioSource audioSource;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
             StartCoroutine(MoveTowardPlayer(other));
-            Invoke("Eat", 0.4f);
+            audioSource.Play();
+            Invoke("Eat", 0.5f);
         }
     }
 

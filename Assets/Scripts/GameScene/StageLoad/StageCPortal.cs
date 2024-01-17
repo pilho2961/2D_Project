@@ -10,7 +10,13 @@ public class StageCPortal : MonoBehaviour
     public GameObject interactionUIPrefab;
     public GameObject createdUI;
     TextMeshProUGUI text;
-    private bool isActive = true;
+    AudioSource audioSource;
+    bool audioPlayed;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -23,14 +29,32 @@ public class StageCPortal : MonoBehaviour
             text = createdUI.GetComponentInChildren<TextMeshProUGUI>();
             text.text = "꿈에서 깨시겠습니까?";
         }
+        else if (other.CompareTag("Player"))
+        {
+            createdUI = Instantiate(interactionUIPrefab, transform);
+            SetUIPosition(createdUI, new Vector3(1000f, 1000f, 0f));
+
+            text = createdUI.GetComponentInChildren<TextMeshProUGUI>();
+            text.text = "꿈의 기억을 모두 모아 오세요.";
+        }
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (Input.GetKey(KeyCode.G) && DataManager.Instance.data.isUnlock[0] && DataManager.Instance.data.isUnlock[1] &&
+        if (DataManager.Instance.data.isUnlock[0] && DataManager.Instance.data.isUnlock[1] &&
             DataManager.Instance.data.isUnlock[3] && DataManager.Instance.data.isUnlock[4])
         {
-            SceneLoader.Instance.StageCSceneLoad();
+            if (Input.GetKey(KeyCode.G) && !audioSource.isPlaying)
+            {
+                audioSource.Play();
+                audioPlayed = true;
+            }
+
+            if (audioPlayed && !audioSource.isPlaying)
+            {
+                audioPlayed = false;
+                SceneLoader.Instance.StageCSceneLoad();
+            }
         }
     }
 

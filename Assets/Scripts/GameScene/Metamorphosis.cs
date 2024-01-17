@@ -25,6 +25,8 @@ public class Metamorphosis : MonoBehaviour
     public float currentHp;
     Slider hpBar;
     TextMeshProUGUI hpText;
+    [SerializeField] private Slider metaBar;
+    [SerializeField] private TextMeshProUGUI metaText;
     public float GetHpValue() { return currentHp / maxHp; }
 
     public ShadeBullet shadeBullet;
@@ -52,6 +54,7 @@ public class Metamorphosis : MonoBehaviour
         Move();
         Aim();
         HpBarChange();
+        MetaBarChange();
         ComeBack();
         OntheTilemap();
     }
@@ -160,6 +163,12 @@ public class Metamorphosis : MonoBehaviour
     {
         hpBar.value = GetHpValue();
         hpText.text = currentHp.ToString();
+    }
+
+    public void MetaBarChange()
+    {
+        metaBar.value = metamorphosisGage / 100f;
+        metaText.text = metamorphosisGage.ToString();
     }
 
     public void TakeDamage(float damage)

@@ -1326,6 +1326,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1588367916381859038, guid: 7785c009aac19334eb01b394f557646d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 2791028758157565577, guid: 7785c009aac19334eb01b394f557646d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1380,6 +1385,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3485462461090974711, guid: 7785c009aac19334eb01b394f557646d,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3485462461090974711, guid: 7785c009aac19334eb01b394f557646d,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4922093564772629661, guid: 7785c009aac19334eb01b394f557646d,
         type: 3}
@@ -3941,6 +3956,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SortingLayerID
       value: -105541197
+      objectReference: {fileID: 0}
+    - target: {fileID: 1185037892195093103, guid: 507dfb4094bb0d54180afaff77f07e37,
+        type: 3}
+      propertyPath: Loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1185037892195093103, guid: 507dfb4094bb0d54180afaff77f07e37,
+        type: 3}
+      propertyPath: Pan2D
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1185037892195093103, guid: 507dfb4094bb0d54180afaff77f07e37,
+        type: 3}
+      propertyPath: MaxDistance
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 1185037892195093103, guid: 507dfb4094bb0d54180afaff77f07e37,
+        type: 3}
+      propertyPath: MinDistance
+      value: 4.192217
+      objectReference: {fileID: 0}
+    - target: {fileID: 1185037892195093103, guid: 507dfb4094bb0d54180afaff77f07e37,
+        type: 3}
+      propertyPath: spreadCustomCurve.m_Curve.Array.data[0].value
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1244659599513123081, guid: 507dfb4094bb0d54180afaff77f07e37,
         type: 3}

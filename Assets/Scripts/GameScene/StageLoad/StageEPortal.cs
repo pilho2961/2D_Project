@@ -11,6 +11,13 @@ public class StageEPortal : MonoBehaviour
     public GameObject createdUI;
     TextMeshProUGUI text;
     private bool isActive = true;
+    AudioSource audioSource;
+    bool audioPlayed;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void Update()
     {
@@ -35,8 +42,15 @@ public class StageEPortal : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (Input.GetKey(KeyCode.G))
+        if (Input.GetKey(KeyCode.G) && !audioSource.isPlaying)
         {
+            audioSource.Play();
+            audioPlayed = true;
+        }
+
+        if (audioPlayed && !audioSource.isPlaying)
+        {
+            audioPlayed = false;
             SceneLoader.Instance.StageESceneLoad();
         }
     }
