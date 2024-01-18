@@ -1408,6 +1408,12 @@ PrefabInstance:
       objectReference: {fileID: 586550270}
     - target: {fileID: 4922093564772629661, guid: 7785c009aac19334eb01b394f557646d,
         type: 3}
+      propertyPath: RestartUI
+      value: 
+      objectReference: {fileID: 3714070585530231336, guid: ade83fd3544236c4ea6535171a22711c,
+        type: 3}
+    - target: {fileID: 4922093564772629661, guid: 7785c009aac19334eb01b394f557646d,
+        type: 3}
       propertyPath: shadeBullet
       value: 
       objectReference: {fileID: 8004808913154651423, guid: 0fa9bd559d6b4a94e91aa52ddba44f94,

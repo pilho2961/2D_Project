@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
@@ -33,6 +32,7 @@ public class Player : MonoBehaviour
 
     public Tilemap tilemap;
     public AudioSource[] audioSource;
+    public GameObject RestartUI;
 
     private void Awake()
     {
@@ -203,14 +203,15 @@ public class Player : MonoBehaviour
         if (currentHp <= damage)
         {
             currentHp = 0;
-            Die();
+            animator.SetTrigger("die");
+            Invoke("Die", 0.5f);
         }
     }
 
     private void Die()
     {
-        // TODO:캐릭터 비활성화하고 재도전 UI 띄우기 -> 씬 다시 불러오기
-        return;
+        Time.timeScale = 0;
+        Instantiate(RestartUI);
     }
 
     private void BasicMoonSliceAttack()
