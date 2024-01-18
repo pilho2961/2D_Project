@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     {
         sleepCharacter.SetActive(true);
         sleepCharacter.transform.position = currentplayer.transform.position;
-        Destroy(currentplayer);
+        currentplayer.SetActive(false);
         currentplayer = sleepCharacter;
         sleepCharacter = null;
     }

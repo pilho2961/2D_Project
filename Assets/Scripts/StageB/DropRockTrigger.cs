@@ -9,8 +9,11 @@ public class DropRockTrigger : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        rock.SetActive(true);
-        activateShade.SetActive(true);
+        if (other.CompareTag("Player"))
+        {
+            rock.SetActive(true);
+            activateShade.SetActive(true);
+        }
     }
 
 

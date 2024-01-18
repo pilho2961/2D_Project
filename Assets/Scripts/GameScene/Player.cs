@@ -92,7 +92,7 @@ public class Player : MonoBehaviour
                 GetComponent<CapsuleCollider2D>().enabled = false;  // 순간이동 시 충돌판정 제거
                 audioSource[0].Play();
                 rb.MovePosition(rb.position + dir * teleportDistance);
-                //TODO: 순간이동 애니메이션 추가
+                animator.SetTrigger("teleport");
                 teleportCoolTime = Time.time + 1f;
             }
 
@@ -147,7 +147,7 @@ public class Player : MonoBehaviour
     {
         while (metamorphosisGage < 100)
         {
-            metamorphosisGage += 50;
+            metamorphosisGage += 10;
             yield return new WaitForSeconds(1);
         }
     }

@@ -20,9 +20,10 @@ public class PlayerYoung : MonoBehaviour
     public float GetFearValue() { return currentFear / maxFear; }
 
     HappyDreamFragmentE fragment;
-    FogOfWar fog;
     public int happyCount;
     public int badCount;
+
+    AudioSource audioSource;
 
     private void Awake()
     {
@@ -30,6 +31,7 @@ public class PlayerYoung : MonoBehaviour
         fearBar = GetComponentInChildren<Slider>();
         fearText = GetComponentInChildren<TextMeshProUGUI>();
         rb = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -120,8 +122,10 @@ public class PlayerYoung : MonoBehaviour
             }
             else if (currentFear >= maxFear)
             {
+                audioSource.Play();
                 Sturned();
                 yield return new WaitForSeconds(5);
+                audioSource.Stop();
                 canMove = true;
                 currentFear -= 10;
             }

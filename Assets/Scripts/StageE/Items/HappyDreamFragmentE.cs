@@ -6,12 +6,18 @@ public class HappyDreamFragmentE : MonoBehaviour
 {
     public float fearGage;
     private Vector2 velocity = Vector2.zero;
+    AudioSource audioSource;
 
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
             StartCoroutine(MoveTowardPlayer(other));
+            audioSource.Play();
             Invoke("Eat", 0.7f);
         }
     }

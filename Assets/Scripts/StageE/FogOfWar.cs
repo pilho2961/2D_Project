@@ -8,7 +8,8 @@ public class FogOfWar : MonoBehaviour
     Vector2 refVel = Vector2.zero;
     PlayerYoung fogSize;
     ParticleSystem fog;
-    public bool changed = false;       // 사이즈가 계속 바뀌는 것을 막기 위한 키
+    public GameObject resetButtonUI;
+    private bool changed = false;       // 사이즈가 계속 바뀌는 것을 막기 위한 키
 
 
     private void Start()
@@ -30,6 +31,8 @@ public class FogOfWar : MonoBehaviour
             SizeChange();
             ChangedCheck();
         }
+
+        OnResetStageButton();
     }
 
     private void SizeChange()
@@ -40,7 +43,7 @@ public class FogOfWar : MonoBehaviour
 
         if (!changed)
         {
-            if (fogSize.happyCount > 1 && fogSize.happyCount % 15 == 0)
+            if (fogSize.happyCount > 1 && fogSize.happyCount % 10 == 0)
             {
                 shapeModule.scale = sizeUp;
                 changed = true;
@@ -55,9 +58,18 @@ public class FogOfWar : MonoBehaviour
 
     private void ChangedCheck()
     {
-        if (fogSize.happyCount % 15 != 0 && fogSize.badCount % 5 != 0 && changed)
+        if (changed && fogSize.happyCount % 10 != 0 && fogSize.badCount % 5 != 0)
         {
             changed = false;
+        }
+    }
+
+    // 시야가 너무 좁아지면 reset버튼 활성화
+    private void OnResetStageButton()
+    {
+        if (fog.shape.scale.x <= 6f)
+        {
+            resetButtonUI.SetActive(true);
         }
     }
 }
