@@ -42,6 +42,8 @@ public class DataManager : MonoBehaviour
             data = JsonUtility.FromJson<Data>(FromJsonData);
             print("불러오기 완료");
         }
+
+        print(filePath);
     }
 
 
